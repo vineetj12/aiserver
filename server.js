@@ -180,24 +180,12 @@ app.post("/addanswer", async (req, res) => {
 app.post("/home", async (req, res) => {
     try {
         const username = req.header('username');
-        
-        let qaRecord = await QA.findOne({ username });
 
-        if (qaRecord) {
-            qaRecord.questionanswer = "";
-            await qaRecord.save();
-        }
-
-        let qnoRecord = await QA.findOne({ username }).select('qno');
-
-        if (qnoRecord) {
-            qnoRecord.qno = "0";
-            await qnoRecord.save();
-        }
+        await QA.deleteOne({ username });
+        await Qno.deleteOne({ username });
 
         res.json({ "message": "true" });
     } catch (error) {
-        console.error("Error in /home:", error);
         res.status(500).json({ "error": "Internal Server Error" });
     }
 });
