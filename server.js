@@ -191,7 +191,7 @@ app.post("/home", async (req, res) => {
         let qnoRecord = await QA.findOne({ username }).select('qno');
 
         if (qnoRecord) {
-            qnoRecord.qno = "1";
+            qnoRecord.qno = "0";
             await qnoRecord.save();
         }
 
