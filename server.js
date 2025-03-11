@@ -27,6 +27,9 @@ async function finduser(username) {
     return await User.findOne({ username: username });
 }
 
+
+
+
 // Signin Route (Fixed reference to `User`)
 app.post('/signin', async (req, res) => {
     try {
@@ -177,11 +180,19 @@ app.post("/addanswer", async (req, res) => {
 app.post("/home", async (req, res) => {
     try {
         const username = req.header('username');
+        
         let qaRecord = await QA.findOne({ username });
 
         if (qaRecord) {
             qaRecord.questionanswer = "";
             await qaRecord.save();
+        }
+
+        let qnoRecord = await QA.findOne({ username }).select('qno');
+
+        if (qnoRecord) {
+            qnoRecord.qno = "1";
+            await qnoRecord.save();
         }
 
         res.json({ "message": "true" });
