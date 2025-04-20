@@ -393,41 +393,31 @@ app.post("/getimage", async (req, res) => {
     }
   });
 ;
-  const multer = require('multer');
-  const fs = require('fs');
-  const { AssemblyAI } = require('assemblyai');
-  app.use(cors({
-    origin: '*',
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type']
-  }));
-  app.use(express.static('public'));
-  
-  const upload = multer({ storage: multer.memoryStorage() });
+const multer = require('multer');
+const { AssemblyAI } = require('assemblyai'); 
+const fs = require('fs');
+app.use(express.static('public'));
 
-  
-  const client = new AssemblyAI({
-    apiKey: process.env.apiKey,
-  });
-  app.post('/transcribe', upload.single('audio'), async (req, res) => {
-    try {
-      const path = req.file.path;
-  
-      const transcript = await client.transcripts.transcribe({
-        audio: fs.createReadStream(path)
-      });
-  
-      res.json({ text: transcript.text });
-  
-      fs.unlink(path, err => {
-        if (err) console.error('Error deleting file:', err);
-      });
-  
-    } catch (err) {
-      console.error('Transcription error:', err);
-      res.status(500).send({ error: err.message });
-    }
-  });  
+const upload = multer({ storage: multer.memoryStorage() });
+
+const client = new AssemblyAI({
+  apiKey: process.env.apiKey,
+});
+
+app.post('/transcribe', upload.single('audio'), async (req, res) => {
+  try {
+    const buffer = req.file.buffer;
+
+    const transcript = await client.transcripts.transcribe({
+      audio: buffer
+    });
+
+    res.json({ text: transcript.text });
+  } catch (err) {
+    console.error('Transcription error:', err);
+    res.status(500).send({ error: err.message });
+  }
+});  
 // MongoDB Connection
 mongoose.connect(url)
     .then(() => {
