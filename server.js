@@ -403,7 +403,8 @@ app.post("/getimage", async (req, res) => {
   }));
   app.use(express.static('public'));
   
-  const upload = multer({ dest: 'uploads/' });
+  const upload = multer({ storage: multer.memoryStorage() });
+
   
   const client = new AssemblyAI({
     apiKey: process.env.apiKey,
