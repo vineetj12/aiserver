@@ -53,7 +53,7 @@ app.post('/signup', async (req, res) => {
 
 
 
-// Signin Route (Fixed reference to `User`)
+// Signin Route 
 app.post('/signin', async (req, res) => {
     try {
         const existingUser = await User.findOne({ 
@@ -133,7 +133,7 @@ Only return valid JSON. Do not add commentary.
         let feedbackJson = result?.response?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
         console.log("🔍 Raw model output:\n", feedbackJson);
 
-        // 🧹 Clean the output if wrapped in Markdown (e.g. ```json ... ```)
+
         if (feedbackJson.startsWith("```json")) {
             feedbackJson = feedbackJson.replace(/^```json\s*/, "").replace(/```$/, "").trim();
         }
@@ -146,16 +146,16 @@ Only return valid JSON. Do not add commentary.
             throw new Error("Failed to parse model output as JSON.");
         }
 
-        // Save numeric score
+  
         const numericScore = parsed.overall_score?.match(/\d+/)?.[0] || "0";
         lastscore.lastscore += lastscore.lastscore ? `_${numericScore}` : numericScore;
         await lastscore.save();
 
-        // Clear previous Q&A
+
         q.questionanswer = "";
         await q.save();
 
-        // Reset question number
+
         let qnoRecord = await QA.findOne({ username }).select('qno');
         if (qnoRecord) {
             qnoRecord.qno = "1";
@@ -301,7 +301,7 @@ app.post("/checkscore", async (req, res) => {
 
 
 app.post("/checkresume", async (req, res) => {
-    console.log("Received request:", req.body); // Debugging line
+    console.log("Received request:", req.body); 
 
     try {
         const username = verifyjson(req.headers.jwttoken);
