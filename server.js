@@ -112,10 +112,7 @@ Provide a structured JSON object with the following format:
       "score": "x/10",
       "feedback": "<feedback>"
     },
-    "Cultural Fit": {
-      "score": "x/10",
-      "feedback": "<feedback>"
-    },
+  
     "Confidence and Clarity": {
       "score": "x/10",
       "feedback": "<feedback>"
