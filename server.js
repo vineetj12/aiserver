@@ -197,12 +197,12 @@ app.post("/interview", async (req, res) => {
 
         let i = parseInt(qnoRecord.qno, 10);
 
-        let prompt1;
+       let prompt1;
         if (i === 0) {
-            prompt1 = `Generate a professional interview question in the domain of "${domain}".`;
+            prompt1 = Generate a professional interview question in the domain of "${domain}". This student has just graduated and might not have that much experience. ASk a easier question.;
         } else {
-            prompt1 = `Based on this previous Q&A history, generate a relevant follow-up interview question in the domain of "${domain}":\n${qaRecord.questionanswer}Only output the question itself. Do not include analysis, explanation, or commentary.`;
-        }
+            prompt1 = Based on this previous Q&A history, generate a relevant follow-up interview question in the domain of "${domain}":\n${qaRecord.questionanswer}Only output the question itself. Do not include analysis, explanation, or commentary. Also gradually increase the toughness in the questions;
+        }
 
         const result1 = await model.generateContent(prompt1);
         const question = await result1.response.text();
