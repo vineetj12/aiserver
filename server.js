@@ -315,9 +315,30 @@ app.post("/checkresume", async (req, res) => {
         }
 
         // Prepare prompts
-        const prompt1 = `${resume} This is my resume. I am focusing on the job for ${profile}. First, just only give the score of my resume out of 10.and never give the line like The formatting is also inconsistent and contains errors.`;
-        const prompt2 = `${resume} This is my resume. I am focusing on the job for ${profile}. What are the good things about my resume? Give them in bullet form in 50-70 words.`;
-        const prompt3 = `${resume} This is my resume. I am focusing on the job for ${profile}. What are the things I have to improve? These things should not be in the resume or need to be added/learned to make more impact.  Give them in bullet form in 50-70 words.`;
+        const prompt1 = `${resume} This is my resume. I am focusing on the job for ${profile}. First, just only give the score of my resume out of 10.and never give the line like The formatting is also inconsistent and contains errors.   if you see this in resume ignor this part const corrections = {
+        "B": "Ray optics",
+        "Duol Natre": "Dual Nature",
+        "Radiation and M": "Radiation and Matter",
+        "a ffoms": "Atoms",
+        "Nuclei 1": "Nuclei",
+        "Semiconductor": "Semiconductor"
+      };`;
+        const prompt2 = `${resume} This is my resume. I am focusing on the job for ${profile}. What are the good things about my resume? Give them in bullet form in 50-70 words.if you see this in resume ignor this part const corrections = {
+        "B": "Ray optics",
+        "Duol Natre": "Dual Nature",
+        "Radiation and M": "Radiation and Matter",
+        "a ffoms": "Atoms",
+        "Nuclei 1": "Nuclei",
+        "Semiconductor": "Semiconductor"
+      };`;
+        const prompt3 = `${resume} This is my resume. I am focusing on the job for ${profile}. What are the things I have to improve? These things should not be in the resume or need to be added/learned to make more impact.  Give them in bullet form in 50-70 words.if you see this in resume ignor this part const corrections = {
+        "B": "Ray optics",
+        "Duol Natre": "Dual Nature",
+        "Radiation and M": "Radiation and Matter",
+        "a ffoms": "Atoms",
+        "Nuclei 1": "Nuclei",
+        "Semiconductor": "Semiconductor"
+      };`;
 
         console.log("Prompts sent to AI model:", { prompt1, prompt2, prompt3 }); // Debugging line
 
